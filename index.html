@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixoForge</title>
+    <script defer src="script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div style="position: relative;">
+        <div class="guide"></div>
+        <canvas width="450" height="450" id="canvasBackground"></canvas>
+        <canvas width="450" height="450" id="canvas"></canvas>
+        <canvas width="450" height="450" id="overlay"></canvas>
+    </div>
+    <div>
+        <label for="colorInput">Set Color:</label>
+        <input type="color" id="colorInput">
+    </div>
+    <div>
+        <label for="toggleGuide">Show Guide:</label>
+        <input type="checkbox" id="toggleGuide">
+    </div>
+    <div>
+        <button id="clearButton">Clear</button>
+    </div>
+    <div id="tools">
+        <button onclick="switchPencil()">
+            <img src="icons/pencil.png">
+        </button>
+        <button onclick="switchBucket()">
+            <img src="icons/bucket.png">
+        </button>
+        <button onclick="switchEraser()">
+            <img src="icons/eraser.png">
+        </button>
+    </div>
+</body>
+
+</html>

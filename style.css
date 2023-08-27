@@ -1,0 +1,39 @@
+body {
+    background: url('icons/backgroundBody.png');
+    color: aliceblue;
+}
+
+#overlay {
+    position: absolute;
+    left: 0;
+
+    z-index: 5;
+}
+
+#canvasBackground {
+    position: absolute;
+    left: 0;
+
+    background-image: url('icons/background.png');
+
+    z-index: -5;
+}
+
+#tools button {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#tools button:hover {
+    cursor: pointer;
+    background-color: #dad5d5;
+}
+
+#tools img {
+    width: 70px;
+    height: 70px;
+}
