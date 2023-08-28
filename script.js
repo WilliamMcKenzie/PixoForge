@@ -2,6 +2,8 @@
  * @type HTMLCanvasElement
  */
 
+var curTool = "pencil"
+
 var canvas = document.getElementById("canvas")
 var canvasOverlay = document.getElementById("overlay")
 var canvasBackground = document.getElementById("canvasBackground")
@@ -13,6 +15,7 @@ var toggleGuide = document.getElementById("toggleGuide")
 const drawingContext = canvas.getContext("2d")
 const overlayContext = canvasOverlay.getContext("2d")
 const backgroundContext = canvasBackground.getContext("2d")
+drawingContext.imageSmoothingEnabled = false;
 
 const CELL_SIDE_COUNT = 8;
 const cellPixelLength = canvas.width / CELL_SIDE_COUNT;
@@ -20,7 +23,16 @@ const colorHistory = {};
 var previewHistory = ["//location", "//prev color"];
 let mousePos = { x: undefined, y: undefined };
 
-//Set canvas checkerboard
+Object.prototype.getKeyByValue = function (value) {
+    var res = []
+    for (var prop in this) {
+        if (this.hasOwnProperty(prop)) {
+            if (this[prop] === value)
+                res.push(prop)
+        }
+    }
+    return res
+}
 
 // Set default color
 colorInput.value = "#000000"
@@ -62,11 +74,50 @@ function fillCell() {
     const startX = cellX * cellPixelLength
     const startY = cellY * cellPixelLength
 
-    console.log(startX, startY)
+    console.log(cellX, cellY)
 
     drawingContext.fillStyle = colorInput.value
-    drawingContext.fillRect(startX, startY, cellPixelLength, cellPixelLength)
+    drawingContext.fillRect(Math.floor(startX), Math.floor(startY), Math.floor(cellPixelLength), Math.floor(cellPixelLength))
     colorHistory[cur] = colorInput.value
+}
+
+
+function deleteCell() {
+    const canvasBoundingRect = canvas.getBoundingClientRect()
+    const cellX = Math.floor((mousePos.x - canvasBoundingRect.left) / cellPixelLength)
+    const cellY = Math.floor((mousePos.y - canvasBoundingRect.top) / cellPixelLength)
+    const cur = cellX + "_" + cellY
+
+    const startX = cellX * cellPixelLength
+    const startY = cellY * cellPixelLength
+
+    console.log(cellX, cellY)
+
+    drawingContext.clearRect(Math.floor(startX), Math.floor(startY), Math.floor(cellPixelLength), Math.floor(cellPixelLength))
+    colorHistory[cur] = "clear"
+}
+
+function bucketFill() {
+    var values = colorHistory.getKeyByValue('#000000')
+    console.log(values)
+    const canvasBoundingRect = canvas.getBoundingClientRect()
+    const cellX = Math.floor((mousePos.x - canvasBoundingRect.left) / cellPixelLength)
+    const cellY = Math.floor((mousePos.y - canvasBoundingRect.top) / cellPixelLength)
+
+    const startX = cellX * cellPixelLength
+    const startY = cellY * cellPixelLength
+
+    console.log(cellX, cellY)
+
+    for (var i = 0; i < values.length; i++) {
+        var cur = values[i].split("_")
+
+        drawingContext.fillStyle = colorInput.value
+        drawingContext.fillRect(Math.floor(cur[0] * cellPixelLength), Math.floor(cur[1] * cellPixelLength), Math.floor(cellPixelLength), Math.floor(cellPixelLength))
+    }
+
+    colorHistory[cur] = colorInput.value
+
 }
 
 function previewAction() {
@@ -78,7 +129,6 @@ function previewAction() {
         const startX = cellX * cellPixelLength
         const startY = cellY * cellPixelLength
 
-        console.log(startX, startY)
 
         overlayContext.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -89,7 +139,7 @@ function previewAction() {
 
 let id = null;
 function mouseHolding(e) {
-    id = setInterval(() => fillCell(), 1);
+    id = setInterval(() => curTool == "pencil" ? fillCell() : curTool == "eraser" ? deleteCell() : curTool == "bucket" ? bucketFill() : colorPicker(), 1);
 }
 function mouseRelease() {
     clearInterval(id);
@@ -112,13 +162,16 @@ canvasOverlay.addEventListener("mouseover", previewAction)
 
 
 function switchPencil() {
-
+    curTool = "pencil"
+    document.body.style.cursor = "url('icons/pencil.png'), auto";
 }
 
 function switchBucket() {
-
+    curTool = "bucket"
+    document.body.style.cursor = "url('icons/bucket.png'), auto";
 }
 
 function switchEraser() {
-
+    curTool = "eraser"
+    document.body.style.cursor = "url('icons/eraser.png'), auto";
 }
