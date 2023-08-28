@@ -3,6 +3,7 @@
  */
 
 var curTool = "pencil"
+document.body.style.cursor = "url('icons/pencil.png'), auto";
 
 var canvas = document.getElementById("canvas")
 var canvasOverlay = document.getElementById("overlay")
@@ -17,7 +18,7 @@ const overlayContext = canvasOverlay.getContext("2d")
 const backgroundContext = canvasBackground.getContext("2d")
 drawingContext.imageSmoothingEnabled = false;
 
-const CELL_SIDE_COUNT = 8;
+const CELL_SIDE_COUNT = 64;
 const cellPixelLength = canvas.width / CELL_SIDE_COUNT;
 const colorHistory = {};
 var previewHistory = ["//location", "//prev color"];
@@ -74,8 +75,6 @@ function fillCell() {
     const startX = cellX * cellPixelLength
     const startY = cellY * cellPixelLength
 
-    console.log(cellX, cellY)
-
     drawingContext.fillStyle = colorInput.value
     drawingContext.fillRect(Math.floor(startX), Math.floor(startY), Math.floor(cellPixelLength), Math.floor(cellPixelLength))
     colorHistory[cur] = colorInput.value
@@ -91,33 +90,45 @@ function deleteCell() {
     const startX = cellX * cellPixelLength
     const startY = cellY * cellPixelLength
 
-    console.log(cellX, cellY)
-
     drawingContext.clearRect(Math.floor(startX), Math.floor(startY), Math.floor(cellPixelLength), Math.floor(cellPixelLength))
     colorHistory[cur] = "clear"
 }
 
 function bucketFill() {
-    var values = colorHistory.getKeyByValue('#000000')
-    console.log(values)
     const canvasBoundingRect = canvas.getBoundingClientRect()
     const cellX = Math.floor((mousePos.x - canvasBoundingRect.left) / cellPixelLength)
     const cellY = Math.floor((mousePos.y - canvasBoundingRect.top) / cellPixelLength)
+    const cur = cellX + "_" + cellY
 
     const startX = cellX * cellPixelLength
     const startY = cellY * cellPixelLength
 
-    console.log(cellX, cellY)
+    console.log(cur)
+
+    var values = colorHistory.getKeyByValue(colorHistory[cur])
 
     for (var i = 0; i < values.length; i++) {
-        var cur = values[i].split("_")
+        var curValue = values[i].split("_")
+
+        colorHistory[values[i]] = colorInput.value
 
         drawingContext.fillStyle = colorInput.value
-        drawingContext.fillRect(Math.floor(cur[0] * cellPixelLength), Math.floor(cur[1] * cellPixelLength), Math.floor(cellPixelLength), Math.floor(cellPixelLength))
+        drawingContext.fillRect(Math.floor(curValue[0] * cellPixelLength), Math.floor(curValue[1] * cellPixelLength), Math.floor(cellPixelLength), Math.floor(cellPixelLength))
     }
+}
 
-    colorHistory[cur] = colorInput.value
+function eyedropperTool() {
+    const canvasBoundingRect = canvas.getBoundingClientRect()
+    const cellX = Math.floor((mousePos.x - canvasBoundingRect.left) / cellPixelLength)
+    const cellY = Math.floor((mousePos.y - canvasBoundingRect.top) / cellPixelLength)
+    const cur = cellX + "_" + cellY
 
+    const startX = cellX * cellPixelLength
+    const startY = cellY * cellPixelLength
+
+    if (colorHistory[cur]) {
+        colorInput.value = colorHistory[cur]
+    }
 }
 
 function previewAction() {
@@ -139,7 +150,7 @@ function previewAction() {
 
 let id = null;
 function mouseHolding(e) {
-    id = setInterval(() => curTool == "pencil" ? fillCell() : curTool == "eraser" ? deleteCell() : curTool == "bucket" ? bucketFill() : colorPicker(), 1);
+    id = setInterval(() => curTool == "pencil" ? fillCell() : curTool == "eraser" ? deleteCell() : curTool == "bucket" ? bucketFill() : eyedropperTool(), 1);
 }
 function mouseRelease() {
     clearInterval(id);
@@ -147,7 +158,9 @@ function mouseRelease() {
 
 canvasOverlay.addEventListener("mousedown", mouseHolding)
 canvasOverlay.addEventListener("mouseup", () => {
-    console.log("mouseup");
+    mouseRelease();
+})
+canvasOverlay.addEventListener("mouseout", () => {
     mouseRelease();
 })
 
@@ -164,14 +177,39 @@ canvasOverlay.addEventListener("mouseover", previewAction)
 function switchPencil() {
     curTool = "pencil"
     document.body.style.cursor = "url('icons/pencil.png'), auto";
+
+    document.getElementById("bucket").classList.remove("activeButton")
+    document.getElementById("eraser").classList.remove("activeButton")
+    document.getElementById("eyedropper").classList.remove("activeButton")
+    document.getElementById("pencil").classList.add("activeButton")
 }
 
 function switchBucket() {
     curTool = "bucket"
     document.body.style.cursor = "url('icons/bucket.png'), auto";
+
+    document.getElementById("bucket").classList.add("activeButton")
+    document.getElementById("eraser").classList.remove("activeButton")
+    document.getElementById("eyedropper").classList.remove("activeButton")
+    document.getElementById("pencil").classList.remove("activeButton")
 }
 
 function switchEraser() {
     curTool = "eraser"
     document.body.style.cursor = "url('icons/eraser.png'), auto";
+
+    document.getElementById("bucket").classList.remove("activeButton")
+    document.getElementById("eraser").classList.add("activeButton")
+    document.getElementById("eyedropper").classList.remove("activeButton")
+    document.getElementById("pencil").classList.remove("activeButton")
+}
+
+function switchEyedropper() {
+    curTool = "eyedropper"
+    document.body.style.cursor = "url('icons/eraser.png'), auto";
+
+    document.getElementById("bucket").classList.remove("activeButton")
+    document.getElementById("eraser").classList.remove("activeButton")
+    document.getElementById("eyedropper").classList.add("activeButton")
+    document.getElementById("pencil").classList.remove("activeButton")
 }
