@@ -23,6 +23,7 @@ const cellPixelLength = canvas.width / CELL_SIDE_COUNT;
 const colorHistory = {};
 var previewHistory = ["//location", "//prev color"];
 let mousePos = { x: undefined, y: undefined };
+setClearCells()
 
 Object.prototype.getKeyByValue = function (value) {
     var res = []
@@ -148,6 +149,15 @@ function previewAction() {
     }, 1);
 }
 
+function setClearCells() {
+    for (var i = 0; i < CELL_SIDE_COUNT; i++) {
+        for (var k = 0; k < CELL_SIDE_COUNT; k++) {
+            colorHistory[`${k}_${i}`] = "clear"
+        }
+        colorHistory[`0_${i}`] = "clear"
+    }
+}
+
 let id = null;
 function mouseHolding(e) {
     id = setInterval(() => curTool == "pencil" ? fillCell() : curTool == "eraser" ? deleteCell() : curTool == "bucket" ? bucketFill() : eyedropperTool(), 1);
@@ -170,7 +180,6 @@ window.addEventListener('mousemove', (event) => {
 
 
 clearButton.addEventListener('click', handleClearButtonClick)
-toggleGuide.addEventListener('change', handleToggleGuideChange)
 canvasOverlay.addEventListener("mouseover", previewAction)
 
 
@@ -206,7 +215,7 @@ function switchEraser() {
 
 function switchEyedropper() {
     curTool = "eyedropper"
-    document.body.style.cursor = "url('icons/eraser.png'), auto";
+    document.body.style.cursor = "url('icons/eyedropper.png'), auto";
 
     document.getElementById("bucket").classList.remove("activeButton")
     document.getElementById("eraser").classList.remove("activeButton")

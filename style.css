@@ -1,29 +1,40 @@
 body {
-    background: rgb(255, 255, 255);
-    color: rgb(255, 255, 255);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    --primary1: #343F3E;
+    --primary2: #505A5B;
+    --primary3: #8F91A2;
+    --secondary1: #DCEDFF;
+    --secondary2: #94B0DA;
+
+
+
+    margin: 0;
+
+    background: var(--primary1);
+    color: var(--secondary1);
+    font-size: 20px;
+
+    font-family: 'Munro';
+}
+
+.colorpick-eyedropper-input-trigger {
+    visibility: hidden;
+    position: absolute;
 }
 
 #overlay {
     position: absolute;
     left: 0;
-    border: 4px solid black;
 
     z-index: 5;
 }
 
-#canvas {
-    border: 4px solid black;
-}
+#canvas {}
 
 #canvasBackground {
     position: absolute;
     left: 0;
 
     background-image: url('icons/background.png');
-    border: 4px solid black;
 
     z-index: -5;
 }
@@ -31,21 +42,22 @@ body {
 .activeButton {}
 
 #tools {
+    position: absolute;
+    left: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    height: 100vh;
+    background-color: var(--primary2);
 }
 
 #tools button {
-    background-image: url('icons/button_bg.png');
-    background-repeat: no-repeat;
-    background-size: auto;
+    background-color: var(--primary2);
     border: none;
-    padding: 18px;
-    padding-left: 29px;
-    padding-right: 29px;
-    margin-bottom: 29px;
+    margin: 10px;
+    padding: 10px;
+    height: fit-content;
 }
 
 #tools button:hover {
@@ -56,4 +68,63 @@ body {
 #tools img {
     width: 70px;
     height: 70px;
+}
+
+#options button {
+    font-size: 20px;
+    font-family: 'Munro';
+    color: var(--secondary1);
+    background-color: var(--primary2);
+    border: none;
+    margin: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 50px;
+}
+
+button:hover {
+    filter: brightness(1.05);
+}
+
+#colorInput {
+    height: 50px;
+    margin: 10px;
+    background-color: var(--primary2);
+    border: none;
+}
+
+#colors {
+    background-color: var(--primary2);
+    height: 100vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    position: absolute;
+    right: 0;
+}
+
+.color {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 50px;
+    height: 50px;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    background-color: transparent;
+    white-space: nowrap;
+}
+
+.color::-webkit-color-swatch {
+    border: none;
+    border-radius: 10px;
+    padding: none;
+    padding: 0;
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'Munro';
+    src: url('fonts/munro-small.ttf');
 }

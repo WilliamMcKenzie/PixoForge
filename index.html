@@ -12,31 +12,49 @@
 </head>
 
 <body>
-    <div style="position: relative;">
-        <div class="guide"></div>
-        <canvas width="640" height="640" id="canvasBackground"></canvas>
-        <canvas width="640" height="640" id="canvas"></canvas>
-        <canvas width="640" height="640" id="overlay"></canvas>
-    </div>
-    <div id="tools">
-        <button id="pencil" onclick="switchPencil()">
-            <img src="icons/pencil.png">
-        </button>
-        <button id="bucket" onclick="switchBucket()">
-            <img src="icons/bucket.png">
-        </button>
-        <button id="eraser" onclick="switchEraser()">
-            <img src="icons/eraser.png">
-        </button>
-        <button onclick="switchEyedropper()">
-            <img id="eyedropper" src="icons/eraser.png">
-        </button>
-        <div>
-            <label for="colorInput">Set Color:</label>
-            <input type="color" id="colorInput">
+    <div style="display: flex;
+    justify-content: center;
+    align-items: flex-start;     flex-wrap: wrap; align-content: center; height: 100vh;">
+        <div id="tools">
+            <button id="pencil" onclick="switchPencil()">
+                <img src="icons/pencil.png">
+            </button>
+            <button id="bucket" onclick="switchBucket()">
+                <img src="icons/bucket.png">
+            </button>
+            <button id="eraser" onclick="switchEraser()">
+                <img src="icons/eraser.png">
+            </button>
+            <button onclick="switchEyedropper()">
+                <img id="eyedropper" src="icons/eyedropper.png">
+            </button>
         </div>
-        <div>
-            <button id="clearButton">Clear</button>
+        <div style="display: flex;
+        flex-direction: column;
+        align-items: flex-end;">
+            <div style="position: relative;">
+                <div class="guide"></div>
+                <canvas width="640" height="640" id="canvasBackground"></canvas>
+                <canvas width="640" height="640" id="canvas"></canvas>
+                <canvas width="640" height="640" id="overlay"></canvas>
+            </div>
+            <div>
+                <div style="display: flex; align-items: center;" id="options">
+                    <div>
+                        <label for="colorInput">Set Color:</label>
+                        <input type="color" id="colorInput">
+                    </div>
+                    <div>
+                        <button id="clearButton">Resize</button>
+                    </div>
+                    <div>
+                        <button id="clearButton">Save</button>
+                    </div>
+                    <div>
+                        <button id="clearButton">Clear</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
