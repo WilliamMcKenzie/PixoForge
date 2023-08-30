@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PixoForge</title>
-    <link rel="icon" type="image/x-icon" href="icons/favicon.png">
+    <link rel="icon" type="image/x-icon" href="icons/ggg.png">
     <script defer src="script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
@@ -14,20 +14,60 @@
 <body>
     <div style="display: flex;
     justify-content: center;
-    align-items: flex-start;     flex-wrap: wrap; align-content: center; height: 100vh;">
+    align-items: center;     flex-wrap: wrap; align-content: center; height: 100vh;">
         <div id="tools">
-            <button id="pencil" onclick="switchPencil()">
-                <img src="icons/pencil.png">
-            </button>
-            <button id="bucket" onclick="switchBucket()">
-                <img src="icons/bucket.png">
-            </button>
-            <button id="eraser" onclick="switchEraser()">
-                <img src="icons/eraser.png">
-            </button>
-            <button onclick="switchEyedropper()">
-                <img id="eyedropper" src="icons/eyedropper.png">
-            </button>
+            <div>
+                <button id="pencil" onclick="switchPencil()">
+                    <img src="icons/pencil.png">
+                </button>
+                <button id="bucket" onclick="switchBucket()">
+                    <img src="icons/bucket.png">
+                </button>
+            </div>
+            <div>
+                <button id="eraser" onclick="switchEraser()">
+                    <img src="icons/eraser.png">
+                </button>
+                <button onclick="switchEyedropper()">
+                    <img id="eyedropper" src="icons/eyedropper.png">
+                </button>
+            </div>
+
+        </div>
+        <div id="colors">
+            <div>
+                <button class="color" style="background-color: #663931;"></button>
+                <button class="color" style="background-color: #45283c;"></button>
+                <button class="color" style="background-color: #000000;"></button>
+            </div>
+            <div>
+                <button class="color" style="background-color: #ffffff;"></button>
+                <button class="color" style="background-color: #cbdbfc;"></button>
+                <button class="color" style="background-color: #9badb7;"></button>
+            </div>
+            <div>
+                <button class="color" style="background-color: #99e550;"></button>
+                <button class="color" style="background-color: #6abe30;"></button>
+                <button class="color" style="background-color: #37946e;"></button>
+            </div>
+            <div>
+                <button class="color" style="background-color: #d95763;"></button>
+                <button class="color" style="background-color: #ac3232;"></button>
+                <button class="color" style="background-color: #76428a;"></button>
+            </div>
+            <div>
+                <button class="color" style="background-color: #5fcde4;"></button>
+                <button class="color" style="background-color: #639bff;"></button>
+                <button class="color" style="background-color: #5b6ee1;"></button>
+            </div>
+            <div>
+                <button class="color" style="background-color: #fbf236;"></button>
+                <button class="color" style="background-color: #eec39a;"></button>
+                <button class="color" style="background-color: #d9a066;"></button>
+            </div>
+            <div>
+                <input type="color" id="colorInput">
+            </div>
         </div>
         <div style="display: flex;
         flex-direction: column;
@@ -38,23 +78,20 @@
                 <canvas width="640" height="640" id="canvas"></canvas>
                 <canvas width="640" height="640" id="overlay"></canvas>
             </div>
-            <div>
+            <!-- <div>
                 <div style="display: flex; align-items: center;" id="options">
+
                     <div>
-                        <label for="colorInput">Set Color:</label>
-                        <input type="color" id="colorInput">
+                        <button id="resize" onclick="resizeCanvas()">Resize</button>
                     </div>
                     <div>
-                        <button id="clearButton">Resize</button>
-                    </div>
-                    <div>
-                        <button id="clearButton">Save</button>
+                        <button id="savebutton">Save</button>
                     </div>
                     <div>
                         <button id="clearButton">Clear</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </body>

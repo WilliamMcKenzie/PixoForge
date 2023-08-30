@@ -4,6 +4,8 @@
 
 var curTool = "pencil"
 document.body.style.cursor = "url('icons/pencil.png'), auto";
+if (document.querySelector('.selectedTool')) document.querySelector('.selectedTool').classList.remove('selectedTool')
+document.getElementById("pencil").classList.add('selectedTool')
 
 var canvas = document.getElementById("canvas")
 var canvasOverlay = document.getElementById("overlay")
@@ -18,8 +20,8 @@ const overlayContext = canvasOverlay.getContext("2d")
 const backgroundContext = canvasBackground.getContext("2d")
 drawingContext.imageSmoothingEnabled = false;
 
-const CELL_SIDE_COUNT = 64;
-const cellPixelLength = canvas.width / CELL_SIDE_COUNT;
+var CELL_SIDE_COUNT = 64;
+var cellPixelLength = canvas.width / CELL_SIDE_COUNT;
 const colorHistory = {};
 var previewHistory = ["//location", "//prev color"];
 let mousePos = { x: undefined, y: undefined };
@@ -43,6 +45,32 @@ colorInput.value = "#000000"
 drawingContext.fillStyle = "rgba(255, 99, 71, 0)"
 drawingContext.fillRect(0, 0, canvas.width, canvas.height)
 
+
+//make pallet
+var colors = document.querySelectorAll(".color")
+
+colors.forEach(color => {
+    color.addEventListener('click', () => {
+        rgbColor = window.getComputedStyle(color).getPropertyValue("background-color")
+        var rgb = rgbColor.replace(/^rgba?\(|\s+|\)$/g, '').split(',');
+        colorInput.value = rgbToHex(parseInt(rgb[0]), parseInt(rgb[1]), parseInt(rgb[2]))
+
+        //set selected
+        if (document.querySelector('.selectedColor')) document.querySelector('.selectedColor').classList.remove('selectedColor')
+        if (document.querySelector('.selectedInput')) document.querySelector('.selectedInput').classList.remove('selectedInput')
+        color.classList.add('selectedColor')
+    })
+});
+
+function rgbToHex(r, g, b) {
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+colorInput.addEventListener('click', () => {
+    if (document.querySelector('.selectedColor')) document.querySelector('.selectedColor').classList.remove('selectedColor')
+    if (document.querySelector('.selectedInput')) document.querySelector('.selectedInput').classList.remove('selectedInput')
+    colorInput.classList.add('selectedInput')
+})
 function handleCanvasMouseDown(e) {
     if (e.button !== 0) {
         return;
@@ -124,11 +152,11 @@ function eyedropperTool() {
     const cellY = Math.floor((mousePos.y - canvasBoundingRect.top) / cellPixelLength)
     const cur = cellX + "_" + cellY
 
-    const startX = cellX * cellPixelLength
-    const startY = cellY * cellPixelLength
-
     if (colorHistory[cur]) {
         colorInput.value = colorHistory[cur]
+        if (document.querySelector('.selectedColor')) document.querySelector('.selectedColor').classList.remove('selectedColor')
+        if (document.querySelector('.selectedInput')) document.querySelector('.selectedInput').classList.remove('selectedInput')
+        colorInput.classList.add('selectedInput')
     }
 }
 
@@ -156,6 +184,9 @@ function setClearCells() {
         }
         colorHistory[`0_${i}`] = "clear"
     }
+}
+
+function resizeCanvas() {
 }
 
 let id = null;
@@ -187,38 +218,32 @@ function switchPencil() {
     curTool = "pencil"
     document.body.style.cursor = "url('icons/pencil.png'), auto";
 
-    document.getElementById("bucket").classList.remove("activeButton")
-    document.getElementById("eraser").classList.remove("activeButton")
-    document.getElementById("eyedropper").classList.remove("activeButton")
-    document.getElementById("pencil").classList.add("activeButton")
+    if (document.querySelector('.selectedTool')) document.querySelector('.selectedTool').classList.remove('selectedTool')
+    document.getElementById("pencil").classList.add('selectedTool')
 }
 
 function switchBucket() {
     curTool = "bucket"
     document.body.style.cursor = "url('icons/bucket.png'), auto";
 
-    document.getElementById("bucket").classList.add("activeButton")
-    document.getElementById("eraser").classList.remove("activeButton")
-    document.getElementById("eyedropper").classList.remove("activeButton")
-    document.getElementById("pencil").classList.remove("activeButton")
+    if (document.querySelector('.selectedTool')) document.querySelector('.selectedTool').classList.remove('selectedTool')
+    document.getElementById("bucket").classList.add('selectedTool')
 }
 
 function switchEraser() {
     curTool = "eraser"
     document.body.style.cursor = "url('icons/eraser.png'), auto";
 
-    document.getElementById("bucket").classList.remove("activeButton")
-    document.getElementById("eraser").classList.add("activeButton")
-    document.getElementById("eyedropper").classList.remove("activeButton")
-    document.getElementById("pencil").classList.remove("activeButton")
+    if (document.querySelector('.selectedTool')) document.querySelector('.selectedTool').classList.remove('selectedTool')
+    document.getElementById("eraser").classList.add('selectedTool')
 }
 
 function switchEyedropper() {
     curTool = "eyedropper"
     document.body.style.cursor = "url('icons/eyedropper.png'), auto";
 
-    document.getElementById("bucket").classList.remove("activeButton")
-    document.getElementById("eraser").classList.remove("activeButton")
-    document.getElementById("eyedropper").classList.add("activeButton")
-    document.getElementById("pencil").classList.remove("activeButton")
+    if (document.querySelector('.selectedTool')) document.querySelector('.selectedTool').classList.remove('selectedTool')
+    document.getElementById("eyedropper").classList.add('selectedTool')
 }
+
+
