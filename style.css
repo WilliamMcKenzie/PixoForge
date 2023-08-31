@@ -1,7 +1,7 @@
 body {
-    --primary1: #30292F;
-    --primary2: #413F54;
-    --primary3: #525069;
+    --primary1: #242324;
+    --primary2: #363537;
+    --primary3: #59585A;
     --secondary1: #DCEDFF;
     --secondary2: #94B0DA;
 
@@ -17,6 +17,13 @@ body {
     cursor: url('icons/cursor.png'), auto;
 }
 
+button:hover {
+    cursor: url("icons/grab.png");
+}
+
+.draggable {
+    z-index: 100;
+}
 
 .colorpick-eyedropper-input-trigger {
     visibility: hidden;
@@ -39,6 +46,10 @@ body {
     padding-bottom: 100px;
     padding-left: 100px;
     padding-right: 100px;
+}
+
+#savedCanvas {
+    z-index: -100;
 }
 
 #overlay {
@@ -102,7 +113,7 @@ body {
     padding: 7.5px;
     border-radius: 10px;
 
-    border-top: 50px solid var(--primary3);
+    border-top: 50px solid var(--primary2);
     background-color: var(--primary1);
     box-shadow: 0 0 20px 1px black;
     cursor: url('icons/grab.png'), auto;
@@ -119,10 +130,8 @@ body {
 }
 
 #tools button:hover {
-    cursor: url('icons/cursor.png'), auto;
+    cursor: url('icons/grab.png'), auto;
     filter: brightness(1.6);
-
-    border-bottom: 8px solid #7f7f7f;
 }
 
 .selectedTool {
@@ -139,6 +148,7 @@ body {
     color: var(--secondary1);
     background-color: var(--primary2);
     border: none;
+    border-radius: 5px;
     margin: 10px;
     padding-left: 20px;
     padding-right: 20px;
@@ -178,7 +188,7 @@ button:hover {
     padding: 7.5px;
     border-radius: 10px;
 
-    border-top: 50px solid var(--primary3);
+    border-top: 50px solid var(--primary2);
     background-color: var(--primary1);
     box-shadow: 0 0 20px 1px black;
     cursor: url('icons/grab.png'), auto;
@@ -191,7 +201,7 @@ button:hover {
     padding: none;
     border: 2px solid black;
     border-radius: 5px;
-    cursor: url('icons/cursor.png'), auto;
+    cursor: url('icons/grab.png'), auto;
 }
 
 .selectedColor {

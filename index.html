@@ -32,11 +32,11 @@
                 </button>
             </div>
             <div>
-                <button id="line" onclick="switchLine()">
-                    <img src="icons/line.png">
+                <button id="select" onclick="switchSelect()">
+                    <img src="icons/selection.png">
                 </button>
                 <button onclick="switchSelect()">
-                    <img id="select" src="icons/select.png">
+                    <img id="selectFill" src="icons/selection_fill.png">
                 </button>
             </div>
         </div>
@@ -78,29 +78,26 @@
         <div style="display: flex;
         flex-direction: column;
         align-items: flex-end; ">
-            <div style="position: relative; width: 700px;
-            height: 700px;">
+            <div style="position: relative; width: 640px;
+            height: 640px;">
                 <div class="guide"></div>
+                <canvas width="640" height="640" id="savedCanvas"></canvas>
                 <canvas width="640" height="640" id="canvasBackground"></canvas>
                 <canvas width="640" height="640" id="canvas"></canvas>
                 <canvas width="640" height="640" id="overlay"></canvas>
                 <canvas width="640" height="640" id="selection"></canvas>
-                <canvas width="700" height="700" id="darkBackground"></canvas>
+                <canvas width="640" height="640" id="darkBackground"></canvas>
             </div>
-            <!-- <div>
+            <div>
                 <div style="display: flex; align-items: center;" id="options">
-
+                    <!-- <div>
+                        <button id="resize">Resize</button>
+                    </div> -->
                     <div>
-                        <button id="resize" onclick="resizeCanvas()">Resize</button>
-                    </div>
-                    <div>
-                        <button id="savebutton">Save</button>
-                    </div>
-                    <div>
-                        <button id="clearButton">Clear</button>
+                        <button id="savebutton" onclick="saveCanvas()">Save</button>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </body>
