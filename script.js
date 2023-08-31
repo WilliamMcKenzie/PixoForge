@@ -349,9 +349,19 @@ function mouseOut() {
     canvasSelection.classList.remove("selectionActive")
 }
 
+
+//for pc devices
 canvasOverlay.addEventListener("mousedown", mouseHolding)
 canvasOverlay.addEventListener("mouseup", () => { mouseRelease() })
 canvasOverlay.addEventListener("mouseout", () => {
+    mouseOut();
+})
+
+
+//for mobile devices
+canvasOverlay.addEventListener("touchstart", mouseHolding)
+canvasOverlay.addEventListener("touchend", () => { mouseRelease() })
+canvasOverlay.addEventListener("touchcancel", () => {
     mouseOut();
 })
 
