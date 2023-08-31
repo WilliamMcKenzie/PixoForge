@@ -24,10 +24,11 @@ drawingContext.imageSmoothingEnabled = false;
 
 var CELL_SIDE_COUNT = 64;
 var cellPixelLength = canvas.width / CELL_SIDE_COUNT;
-const colorHistory = {};
+var colorHistory = {};
 var usedColors = ["#000000"]
 var previewHistory = ["//location", "//prev color"];
 let mousePos = { x: undefined, y: undefined };
+var previousMousePos
 setClearCells()
 
 Object.prototype.getKeyByValue = function (value) {
@@ -284,10 +285,21 @@ function setClearCells() {
     }
 }
 
+function newTopic() {
+    banner = document.getElementById("bannerHeader")
+    banner.innerHTML = drawingSubjects[Math.floor(Math.random() * drawingSubjects.length)]
+}
+
+function clearCanvas() {
+    drawingContext.clearRect(0, 0, canvas.width, canvas.height)
+    colorHistory = {}
+    setClearCells()
+}
+
 function saveCanvas() {
     var savedCanvas = document.getElementById("savedCanvas")
     let downloadLink = document.createElement('a');
-    downloadLink.setAttribute('download', 'CanvasAsImage.png');
+    downloadLink.setAttribute('download', `${banner = document.getElementById("bannerHeader").innerHTML}.png`);
 
     savedCanvas.width = CELL_SIDE_COUNT
     savedCanvas.height = CELL_SIDE_COUNT
@@ -430,3 +442,146 @@ draggableElements.forEach(element => {
         document.removeEventListener('mousemove', move)
     })
 });
+
+var drawingSubjects = ["Unicorn",
+    "Jellyfish",
+    "Hammer",
+    "Lemon",
+    "Cherry",
+    "Firetruck",
+    "Cactus",
+    "Ferris Wheel",
+    "Donkey",
+    "Tiger",
+    "Palm Tree",
+    "Dinosaur",
+    "Soccer",
+    "Rocket",
+    "Bicycle",
+    "Ice Cream",
+    "Cake",
+    "Book",
+    "Fish",
+    "Carrot",
+    "Rainbow",
+    "Sunset",
+    "Castle",
+    "Starfish",
+    "Moonlight",
+    "Train",
+    "Camera",
+    "Piano",
+    "Butterfly",
+    "Hamburger",
+    "Cupcake",
+    "Anchor",
+    "Cowboy",
+    "Toucan",
+    "Vampire",
+    "Kangaroo",
+    "Elephant",
+    "Ghost",
+    "Robot",
+    "Horse",
+    "Lion",
+    "Octopus",
+    "Snowman",
+    "Apple",
+    "Bear",
+    "Zebra",
+    "Flamingo",
+    "Pizza",
+    "Helicopter",
+    "Spider",
+    "Sailboat",
+    "Banana",
+    "Bee",
+    "Football",
+    "Rocket",
+    "Basketball",
+    "Balloon",
+    "Sunflower",
+    "Truck",
+    "Crown",
+    "Donut",
+    "Soccer",
+    "Ice Cream",
+    "Dragon",
+    "Penguin",
+    "Caterpillar",
+    "Spaceship",
+    "Turtle",
+    "Rainbow",
+    "Dolphin",
+    "Unicorn",
+    "Guitar",
+    "Submarine",
+    "Jellyfish",
+    "Pirate",
+    "Mermaid",
+    "Spacesuit",
+    "Dinosaur",
+    "Cake",
+    "Train",
+    "Moon",
+    "Castle",
+    "Fire",
+    "Fish",
+    "Robot",
+    "Tree",
+    "Mountain",
+    "Beach",
+    "Moonlight",
+    "Sunset",
+    "Ocean",
+    "City",
+    "Desert",
+    "Skyline",
+    "Underwater",
+    "Countryside",
+    "Galaxy",
+    "Volcano",
+    "Forest",
+    "Cave",
+    "Waterfall",
+    "Space",
+    "Jungle",
+    "Snowscape",
+    "Island",
+    "Sunrise",
+    "Sunflower",
+    "Park",
+    "Skyscraper",
+    "Night",
+    "Farm",
+    "Bridge",
+    "Cliff",
+    "Meadow",
+    "Ruins",
+    "Lighthouse",
+    "Harbor",
+    "Rainforest",
+    "Carnival",
+    "Fairy",
+    "Mars",
+    "Candy",
+    "Alien",
+    "Planet",
+    "Comet",
+    "Asteroid",
+    "Satellite",
+    "Spaceship",
+    "Telescope",
+    "Astronaut",
+    "Black Hole",
+    "Meteor",
+    "Rocket",
+    "Orbit",
+    "Star",
+    "Galaxy",
+    "Nebula",
+    "Constellation",
+    "Supernova",
+    "Cosmos",
+];
+

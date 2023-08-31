@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>PixoForge</title>
     <link rel="icon" type="image/x-icon" href="icons/favicon.png">
     <script defer src="script.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body draggable="false" ondragstart="return false">
     <div style="display: flex;
     justify-content: center;
     align-items: center;     flex-wrap: wrap; align-content: center; height: 100vh;">
@@ -75,6 +75,7 @@
         <div style="display: flex;
         flex-direction: column;
         align-items: flex-end; ">
+            <h1 id="bannerHeader">Pixoforge</h1>
             <div style="position: relative; width: 640px;
             height: 640px;">
                 <div class="guide"></div>
@@ -86,10 +87,13 @@
                 <canvas width="640" height="640" id="darkBackground"></canvas>
             </div>
             <div>
-                <div style="display: flex; align-items: center;" id="options">
-                    <!-- <div>
-                        <button id="resize">Resize</button>
-                    </div> -->
+                <div style="display: flex; align-items: center; flex-direction: row-reverse;" id="options">
+                    <div>
+                        <button id="donebutton" onclick="newTopic()">New Topic</button>
+                    </div>
+                    <div>
+                        <button id="donebutton" onclick="clearCanvas()">Clear</button>
+                    </div>
                     <div>
                         <button id="savebutton" onclick="saveCanvas()">
                             <img src="icons/save.png" style="height: 50px;">
