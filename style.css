@@ -45,10 +45,10 @@ button:hover {
     overflow-x: hidden;
     overflow-y: hidden;
 
-    width: 640px;
+    width: 20vw;
     height: 130px;
-    padding-bottom: 205px;
-    margin-bottom: 50px;
+    position: absolute;
+    top: 0;
 }
 
 #darkBackground {
