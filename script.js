@@ -286,8 +286,9 @@ function setClearCells() {
 }
 
 function newTopic() {
-    banner = document.getElementById("bannerHeader")
-    banner.innerHTML = drawingSubjects[Math.floor(Math.random() * drawingSubjects.length)]
+    // banner = document.getElementById("bannerHeader")
+    // banner.innerHTML = drawingSubjects[Math.floor(Math.random() * drawingSubjects.length)]
+    window.alert(`Draw me a ${drawingSubjects[Math.floor(Math.random() * drawingSubjects.length)]}`)
 }
 
 function clearCanvas() {

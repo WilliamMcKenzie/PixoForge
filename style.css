@@ -9,12 +9,15 @@ body {
 
     margin: 0;
 
-    background: var(--primary2);
+    background: url('icons/appBackground.png');
+    background-repeat: no-repeat;
+    background-size: cover;
     color: var(--secondary1);
     font-size: 20px;
 
     font-family: 'Munro';
     cursor: url('icons/cursor.png'), auto;
+    overflow: hidden;
 }
 
 button:hover {
@@ -49,6 +52,8 @@ button:hover {
     height: 130px;
     position: absolute;
     top: 0;
+
+    visibility: hidden;
 }
 
 #darkBackground {
@@ -60,7 +65,7 @@ button:hover {
 
     transform: translate(-50%, -50%);
 
-    background-color: var(--primary1);
+    background-color: rgba(1, 1, 1, 0.2);
     border-radius: 50px;
 
     margin-top: 25px;
